@@ -468,11 +468,11 @@ export default function Editor() {
   };
 
   return (
-    <div className="flex flex-col flex-1 min-h-0 w-full max-w-full relative overflow-x-hidden">
+    <div className="flex flex-col flex-1 min-h-0 w-full max-w-full relative overflow-x-hidden overflow-y-auto overscroll-contain">
       <input ref={fileInputRef} type="file" accept="video/*,image/*" multiple className="hidden" onChange={handleFilesSelected} />
 
-      {/* Preview */}
-      <section className="shrink-0 p-3 flex flex-col gap-2 bg-zinc-900 w-full max-w-full overflow-x-hidden">
+      {/* Preview — responsive, keeps timeline/toolbar visible on 375px */}
+      <section className="shrink-0 p-3 pb-2 flex flex-col gap-2 bg-zinc-900 w-full max-w-full overflow-x-hidden">
         <div className="flex items-center justify-between gap-2 min-w-0">
           <span className="text-[11px] font-semibold tracking-widest text-zinc-500 shrink-0">PREVIEW</span>
           <div className="flex items-center gap-2 shrink-0">
@@ -501,7 +501,7 @@ export default function Editor() {
         </div>
         <motion.div
           layout
-          className={`mx-auto w-full bg-black rounded-2xl border border-zinc-800 overflow-hidden relative flex items-center justify-center transition-all ${aspect === "9:16" ? "aspect-[9/16] max-w-[280px] max-h-[42vh]" : "aspect-video max-w-full max-h-[32vh]"}`}
+          className={`mx-auto w-full bg-black rounded-2xl border border-zinc-800 overflow-hidden relative flex items-center justify-center transition-all duration-300 ${aspect === "9:16" ? "aspect-[9/16] max-w-[220px] max-h-[32vh] sm:max-w-[240px] sm:max-h-[36vh]" : "aspect-video max-w-full max-h-[26vh] sm:max-h-[30vh]"}`}
         >
           {selectedClip ? (
             <MediaPreview clip={selectedClip} selectedTextId={selectedTextId} onSelectText={setSelectedTextId} />
