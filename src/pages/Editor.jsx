@@ -491,12 +491,12 @@ export default function Editor() {
   const activeClip = activeId ? mediaClips.find((c) => c.id === activeId) ?? null : null;
 
   return (
-    <div className="flex flex-col flex-1 min-h-0 w-full max-w-full relative overflow-x-hidden overflow-y-auto overscroll-contain">
+    <div className="flex flex-col flex-1 min-h-0 w-full max-w-full relative overflow-x-hidden overscroll-contain">
       <input ref={fileInputRef} type="file" accept="video/*,image/*" multiple className="hidden" onChange={handleFilesSelected} />
 
-      {/* Preview — responsive, keeps timeline/toolbar visible on 375px */}
+      {/* Preview — fixed stage so aspect toggle never moves timeline/toolbar */}
       <section className="shrink-0 p-3 pb-2 flex flex-col gap-2 bg-zinc-900 w-full max-w-full overflow-x-hidden">
-        <div className="flex items-center justify-between gap-2 min-w-0">
+        <div className="flex items-center justify-between gap-2 min-w-0 h-[32px]">
           <span className="text-[11px] font-semibold tracking-widest text-zinc-500 shrink-0">PREVIEW</span>
           <div className="flex items-center gap-2 shrink-0">
             <div className="flex items-center rounded-full bg-zinc-800 border border-zinc-700 p-0.5 gap-0.5">
@@ -522,10 +522,17 @@ export default function Editor() {
             </button>
           </div>
         </div>
-        <motion.div
-          layout
-          className={`mx-auto w-full bg-black rounded-2xl border border-zinc-800 overflow-hidden relative flex items-center justify-center transition-all duration-300 ${aspect === "9:16" ? "aspect-[9/16] max-w-[220px] max-h-[32vh] sm:max-w-[240px] sm:max-h-[36vh]" : "aspect-video max-w-full max-h-[26vh] sm:max-h-[30vh]"}`}
-        >
+        {/* Fixed-height letterboxed stage — outer size NEVER changes with aspect */}
+        <div className="mx-auto w-full rounded-2xl bg-zinc-950/60 border border-zinc-800/60 flex items-center justify-center overflow-hidden h-[36dvh] min-h-[300px] max-h-[380px] sm:h-[340px]">
+          <motion.div
+            key={aspect}
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.18 }}
+            className={`bg-black rounded-xl border border-zinc-800 overflow-hidden relative flex items-center justify-center max-w-full max-h-full ${
+              aspect === "9:16" ? "h-full aspect-[9/16] w-auto" : "w-full aspect-video max-w-[440px] h-auto max-h-full"
+            }`}
+          >
           {selectedClip ? (
             <MediaPreview clip={selectedClip} selectedTextId={selectedTextId} onSelectText={setSelectedTextId} />
           ) : (
@@ -542,10 +549,15 @@ export default function Editor() {
               </button>
             </div>
           )}
-        </motion.div>
-        {mediaClips.length > 0 && <PlaybackControls />}
+          </motion.div>
+        </div>
+        {mediaClips.length > 0 && (
+          <div className="min-h-[56px]">
+            <PlaybackControls />
+          </div>
+        )}
         {mediaClips.length > 0 ? (
-          <p className="text-center text-[11px] text-zinc-500 px-3 leading-relaxed">
+          <p className="text-center text-[11px] text-zinc-500 px-3 leading-relaxed min-h-[18px] truncate">
             {mediaClips.length} clip{mediaClips.length !== 1 ? "s" : ""} • {selectedClip ? `${selectedClip.file?.name ?? selectedClip.type}` : "Tap a clip below"} • {getTotalDuration(mediaClips).toFixed(1)}s total
             {isTrimMode && selectedClip ? " • Drag handles to trim (video & image)" : ""}
           </p>
