@@ -167,9 +167,9 @@ export default function TextPanel({ clip, selectedTextId, onSelectText }) {
       <div className="rounded-xl bg-zinc-800/50 border border-zinc-700 p-3 flex gap-3">
         <div className="w-8 h-8 rounded-lg bg-violet-600/20 border border-violet-500/30 flex items-center justify-center text-violet-300 shrink-0">✋</div>
         <div>
-          <p className="text-xs font-medium text-zinc-200">Move & resize on preview</p>
+          <p className="text-xs font-medium text-zinc-200">Move text on preview</p>
           <p className="text-[11px] text-zinc-400 leading-relaxed">
-            Phone: <span className="text-zinc-300">touch drag</span> to move • <span className="text-zinc-300">pinch 2 fingers</span> to resize • Laptop: <span className="text-zinc-300">mouse drag</span> • tap text to select/delete
+            Phone: <span className="text-zinc-300">touch drag</span> to move • <span className="text-zinc-300">slider above</span> to resize • Laptop: <span className="text-zinc-300">mouse drag</span> • tap text to select/delete
           </p>
         </div>
       </div>
