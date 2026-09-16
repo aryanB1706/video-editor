@@ -213,7 +213,10 @@ export default function MediaPreview({ clip: propClip, selectedTextId, onSelectT
 
 
   const handleTextPointerDown = (e, ov) => {
+    // two-finger pinch start — prevent browser zoom and capture
     if (e.touches && e.touches.length === 2) {
+      e.preventDefault();
+      e.stopPropagation();
       const dx = e.touches[0].clientX - e.touches[1].clientX;
       const dy = e.touches[0].clientY - e.touches[1].clientY;
       pinchRef.current = { id: ov.id, startDist: Math.hypot(dx, dy), startFontSize: ov.fontSize ?? 18 };
@@ -236,6 +239,9 @@ export default function MediaPreview({ clip: propClip, selectedTextId, onSelectT
 
   const handleTextTouchMove = (e) => {
     if (e.touches.length === 2 && pinchRef.current.id) {
+      // prevent browser viewport zoom, only scale text
+      e.preventDefault();
+      e.stopPropagation();
       const dx = e.touches[0].clientX - e.touches[1].clientX;
       const dy = e.touches[0].clientY - e.touches[1].clientY;
       const dist = Math.hypot(dx, dy);
@@ -250,7 +256,10 @@ export default function MediaPreview({ clip: propClip, selectedTextId, onSelectT
     }
   };
 
-  const handleTextTouchEnd = () => {
+  const handleTextTouchEnd = (e) => {
+    if (e) {
+      e.preventDefault();
+    }
     if (pinchRef.current.id) pinchRef.current = { id: null, startDist: 0, startFontSize: 18 };
   };
 
@@ -320,11 +329,44 @@ export default function MediaPreview({ clip: propClip, selectedTextId, onSelectT
   const cropAspect = clip.crop ? clip.crop.replace(":", " / ") : null;
   const mediaObjectFit = clip.crop ? "cover" : "contain";
 
+  // Global pinch guard — prevents viewport zoom when pinching text on mobile
+  useEffect(() => {
+    const onTouchMove = (e) => {
+      if (pinchRef.current.id && e.touches.length === 2) {
+        e.preventDefault();
+        // reuse same logic as handleTextTouchMove
+        const dx = e.touches[0].clientX - e.touches[1].clientX;
+        const dy = e.touches[0].clientY - e.touches[1].clientY;
+        const dist = Math.hypot(dx, dy);
+        const scale = dist / (pinchRef.current.startDist || dist);
+        const newSize = Math.max(12, Math.min(48, Math.round(pinchRef.current.startFontSize * scale)));
+        const id = pinchRef.current.id;
+        if (clip && id) {
+          updateClip(clip.id, {
+            textOverlays: clip.textOverlays.map((ov) => (ov.id === id ? { ...ov, fontSize: newSize } : ov)),
+          });
+        }
+      }
+    };
+    const onTouchEnd = () => {
+      if (pinchRef.current.id) pinchRef.current = { id: null, startDist: 0, startFontSize: 18 };
+    };
+    window.addEventListener("touchmove", onTouchMove, { passive: false });
+    window.addEventListener("touchend", onTouchEnd);
+    window.addEventListener("touchcancel", onTouchEnd);
+    return () => {
+      window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("touchend", onTouchEnd);
+      window.removeEventListener("touchcancel", onTouchEnd);
+    };
+  }, [clip, updateClip]);
+
   return (
     <div className="absolute inset-0 flex flex-col">
       <div
         ref={previewRef}
-        className="relative flex-1 overflow-hidden bg-black flex items-center justify-center"
+        className="relative flex-1 overflow-hidden bg-black flex items-center justify-center touch-none"
+        style={{ touchAction: "none" }}
         onClick={(e) => {
           if (e.target === e.currentTarget && onSelectText) onSelectText(null);
         }}
