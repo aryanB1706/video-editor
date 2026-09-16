@@ -468,11 +468,11 @@ export default function Editor() {
   };
 
   return (
-    <div className="flex flex-col h-full relative overflow-x-hidden">
+    <div className="flex flex-col flex-1 min-h-0 w-full max-w-full relative overflow-x-hidden">
       <input ref={fileInputRef} type="file" accept="video/*,image/*" multiple className="hidden" onChange={handleFilesSelected} />
 
       {/* Preview */}
-      <section className="shrink-0 p-3 flex flex-col gap-2 bg-zinc-900 overflow-x-hidden">
+      <section className="shrink-0 p-3 flex flex-col gap-2 bg-zinc-900 w-full max-w-full overflow-x-hidden">
         <div className="flex items-center justify-between gap-2 min-w-0">
           <span className="text-[11px] font-semibold tracking-widest text-zinc-500 shrink-0">PREVIEW</span>
           <div className="flex items-center gap-2 shrink-0">
@@ -556,7 +556,7 @@ export default function Editor() {
       </section>
 
       {/* Timeline */}
-      <section className="shrink-0 border-y border-zinc-800 bg-zinc-800/30 overflow-x-hidden">
+      <section className="shrink-0 border-y border-zinc-800 bg-zinc-800/30 w-full max-w-full overflow-hidden">
         <div className="px-3 py-2 flex items-center justify-between gap-2 min-w-0">
           <span className="text-[11px] font-semibold tracking-widest text-zinc-500 shrink-0">TIMELINE</span>
           <span className="text-[11px] font-mono text-zinc-500 truncate">
@@ -623,7 +623,7 @@ export default function Editor() {
       </section>
 
       {/* Toolbar */}
-      <section className="shrink-0 bg-zinc-900 border-t border-zinc-800 px-2 py-2 overflow-x-hidden">
+      <section className="shrink-0 bg-zinc-900 border-t border-zinc-800 px-2 py-2 w-full max-w-full overflow-hidden">
         <div className="flex items-center gap-1 min-w-0">
           {[
             { id: "trim", label: "Trim", icon: Scissors },
@@ -670,8 +670,8 @@ export default function Editor() {
       {/* Delete confirm — motion */}
       <AnimatePresence>
         {showDeleteConfirm && (
-          <motion.div className="absolute inset-0 z-50 flex items-end sm:items-center justify-center p-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
-            <motion.button aria-label="Close" onClick={() => setShowDeleteConfirm(false)} className="absolute inset-0 bg-black/60 backdrop-blur-sm" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} />
+          <motion.div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
+            <motion.button aria-label="Close" onClick={() => setShowDeleteConfirm(false)} className="fixed inset-0 bg-black/60 backdrop-blur-sm" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} />
             <motion.div
               initial={{ y: 24, opacity: 0, scale: 0.98 }}
               animate={{ y: 0, opacity: 1, scale: 1 }}
@@ -752,7 +752,7 @@ export default function Editor() {
             <motion.button
               aria-label="Close panel"
               onClick={() => setActiveTool(null)}
-              className="absolute inset-0 bg-black/40 backdrop-blur-[1px] z-30"
+              className="fixed inset-0 bg-black/40 backdrop-blur-[1px] z-30"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -770,7 +770,7 @@ export default function Editor() {
               onDragEnd={(_, info) => {
                 if (info.offset.y > 80) setActiveTool(null);
               }}
-              className={`absolute bottom-0 left-0 right-0 z-40 bg-zinc-900 border-t border-zinc-700 rounded-t-2xl shadow-2xl flex flex-col ${activeTool === "text" ? "max-h-[68vh]" : "max-h-[45vh]"}`}
+              className={`fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[480px] z-40 bg-zinc-900 border-t border-zinc-700 rounded-t-2xl shadow-2xl flex flex-col ${activeTool === "text" ? "max-h-[68vh]" : "max-h-[45vh]"}`}
             >
               <div className="flex justify-center pt-2 pb-1 shrink-0">
                 <div className="w-9 h-1 rounded-full bg-zinc-700" />
