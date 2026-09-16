@@ -16,8 +16,10 @@ import {
 import {
   DndContext,
   closestCenter,
-  PointerSensor,
+  MouseSensor,
   TouchSensor,
+  KeyboardSensor,
+  DragOverlay,
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
@@ -25,6 +27,7 @@ import {
   SortableContext,
   horizontalListSortingStrategy,
   useSortable,
+  sortableKeyboardCoordinates,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import useEditorStore from "../store/editorStore";
@@ -128,6 +131,12 @@ function SortableClip({ clip, isSelected, onSelect, isTrimMode }) {
     transition,
     opacity: isDragging ? 0.6 : 1,
     zIndex: isDragging ? 10 : 0,
+    // Allow native scroll (pan) until hold-to-drag activates.
+    // dnd-kit TouchSensor with delay takes over after hold.
+    touchAction: "pan-x pan-y",
+    WebkitUserSelect: "none",
+    userSelect: "none",
+    WebkitTouchCallout: "none",
   };
 
   const updateClip = useEditorStore((s) => s.updateClip);
@@ -247,7 +256,7 @@ function SortableClip({ clip, isSelected, onSelect, isTrimMode }) {
     <div
       ref={setNodeRef}
       style={style}
-      className="snap-start shrink-0 relative pt-6"
+      className={`snap-start shrink-0 relative pt-6 select-none ${isDragging ? "z-10" : ""}`}
       {...(!showTrimUI ? attributes : {})}
       {...(!showTrimUI ? listeners : {})}
     >
@@ -368,11 +377,18 @@ export default function Editor() {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [selectedTextId, setSelectedTextId] = useState(null);
   const [isAdding, setIsAdding] = useState(false);
+  const [activeId, setActiveId] = useState(null);
   const fileInputRef = useRef(null);
 
+  // Mobile fix: MouseSensor for desktop (touch never triggers it),
+  // TouchSensor with hold-delay for mobile so:
+  // - normal swipe = horizontal scroll
+  // - hold (~300ms) + move = reorder drag
+  // PointerSensor removed because it hijacks touch scroll after 6px.
   const sensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
-    useSensor(TouchSensor, { activationConstraint: { delay: 200, tolerance: 6 } })
+    useSensor(MouseSensor, { activationConstraint: { distance: 8 } }),
+    useSensor(TouchSensor, { activationConstraint: { delay: 300, tolerance: 8 } }),
+    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
   );
 
   const selectedClip = mediaClips.find((c) => c.id === selectedClipId) ?? mediaClips[0] ?? null;
@@ -451,7 +467,16 @@ export default function Editor() {
     }
   };
 
+  const handleDragStart = (event) => {
+    setActiveId(event.active.id);
+    // light haptic on mobile when hold-to-drag activates
+    try {
+      navigator.vibrate?.(15);
+    } catch {}
+  };
+
   const handleDragEnd = (event) => {
+    setActiveId(null);
     if (isTrimMode) return;
     const { active, over } = event;
     if (!over || active.id === over.id) return;
@@ -461,11 +486,9 @@ export default function Editor() {
     reorderClips(oldIndex, newIndex);
   };
 
-  const longPressTimer = useRef(null);
-  const handleClipLongPress = (clipId) => {
-    setSelectedClip(clipId);
-    setShowDeleteConfirm(true);
-  };
+  const handleDragCancel = () => setActiveId(null);
+
+  const activeClip = activeId ? mediaClips.find((c) => c.id === activeId) ?? null : null;
 
   return (
     <div className="flex flex-col flex-1 min-h-0 w-full max-w-full relative overflow-x-hidden overflow-y-auto overscroll-contain">
@@ -560,7 +583,7 @@ export default function Editor() {
         <div className="px-3 py-2 flex items-center justify-between gap-2 min-w-0">
           <span className="text-[11px] font-semibold tracking-widest text-zinc-500 shrink-0">TIMELINE</span>
           <span className="text-[11px] font-mono text-zinc-500 truncate">
-            {mediaClips.length > 0 ? `${getTotalDuration(mediaClips).toFixed(1)}s total ${isTrimMode ? "• Trim mode" : "• drag to reorder"}` : "Empty"}
+            {mediaClips.length > 0 ? `${getTotalDuration(mediaClips).toFixed(1)}s total ${isTrimMode ? "• Trim mode" : "• hold to drag"}` : "Empty"}
           </span>
         </div>
         <div className="pb-3 overflow-hidden">
@@ -575,27 +598,26 @@ export default function Editor() {
               </div>
             </div>
           ) : (
-            <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+            <DndContext
+              sensors={sensors}
+              collisionDetection={closestCenter}
+              onDragStart={handleDragStart}
+              onDragEnd={handleDragEnd}
+              onDragCancel={handleDragCancel}
+            >
               <SortableContext items={mediaClips.map((c) => c.id)} strategy={horizontalListSortingStrategy}>
-                <div className="flex gap-2.5 overflow-x-auto overflow-y-hidden scrollbar-none px-3 snap-x snap-mandatory scroll-smooth pt-6 w-full max-w-full" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
+                <div
+                  className="flex gap-2.5 overflow-x-auto overflow-y-hidden scrollbar-none px-3 snap-x snap-proximity scroll-smooth pt-6 pb-1 w-full max-w-full"
+                  style={{ scrollbarWidth: "none", msOverflowStyle: "none", touchAction: "pan-x pan-y", overscrollBehaviorX: "contain" }}
+                >
                   {mediaClips.map((clip) => (
-                    <div
-                      key={clip.id}
-                      onContextMenu={(e) => {
-                        e.preventDefault();
-                        handleClipLongPress(clip.id);
-                      }}
-                      onTouchStart={() => {
-                        longPressTimer.current = setTimeout(() => handleClipLongPress(clip.id), 650);
-                      }}
-                      onTouchEnd={() => clearTimeout(longPressTimer.current)}
-                      onTouchMove={() => clearTimeout(longPressTimer.current)}
-                      className="shrink-0"
-                    >
                       <SortableClip
+                        key={clip.id}
                         clip={clip}
                         isSelected={clip.id === (selectedClip?.id ?? null)}
                         onSelect={(id) => {
+                          // ignore tap that was actually a drag
+                          if (activeId) return;
                           const segs = getTimelineSegments(mediaClips);
                           const seg = segs.find((s) => s.clip.id === id);
                           if (seg) useEditorStore.getState().setCurrentTime(seg.start);
@@ -603,7 +625,6 @@ export default function Editor() {
                         }}
                         isTrimMode={isTrimMode}
                       />
-                    </div>
                   ))}
                   <button
                     onClick={handleAddClipClick}
@@ -617,6 +638,25 @@ export default function Editor() {
                   </button>
                 </div>
               </SortableContext>
+              <DragOverlay dropAnimation={null}>
+                {activeClip ? (
+                  <div className="w-[108px] rounded-xl border-2 border-violet-500 bg-zinc-900 shadow-2xl shadow-violet-900/40 overflow-hidden opacity-95 rotate-2 scale-105 pointer-events-none">
+                    <div className="h-[64px] bg-black relative overflow-hidden">
+                      {activeClip.type === "image" ? (
+                        <img src={activeClip.url} alt="" className="w-full h-full object-cover pointer-events-none" />
+                      ) : (
+                        <video src={activeClip.url} muted playsInline preload="metadata" className="w-full h-full object-cover pointer-events-none" />
+                      )}
+                      <span className="absolute bottom-1 left-1 text-[9px] font-bold px-1 py-0.5 rounded bg-violet-600 text-white">
+                        {(activeClip.trimEnd - activeClip.trimStart).toFixed(1)}s
+                      </span>
+                    </div>
+                    <div className="px-2 py-1.5 bg-zinc-800">
+                      <p className="text-[11px] font-medium text-zinc-200 truncate">{activeClip.file?.name ?? activeClip.type}</p>
+                    </div>
+                  </div>
+                ) : null}
+              </DragOverlay>
             </DndContext>
           )}
         </div>
@@ -664,7 +704,7 @@ export default function Editor() {
             );
           })}
         </div>
-        <p className="text-center text-[10px] text-zinc-600 mt-1 px-2 leading-relaxed">Tap a tool to open • Drag timeline to reorder • Long-press clip to delete</p>
+        <p className="text-center text-[10px] text-zinc-600 mt-1 px-2 leading-relaxed">Tap a tool to open • Hold clip to drag & reorder • Tap × to delete</p>
       </section>
 
       {/* Delete confirm — motion */}
