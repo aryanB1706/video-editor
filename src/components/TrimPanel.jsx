@@ -155,7 +155,7 @@ export default function TrimPanel({ clip }) {
               <button
                 key={String(opt.id)}
                 onClick={() => setLocalCrop(opt.id)}
-                className={`p-3 rounded-xl border flex flex-col items-center gap-1 transition-colors ${localCrop === opt.id ? "bg-violet-600 border-violet-500 text-white" : "bg-zinc-800 border-zinc-700 text-zinc-400 hover:bg-zinc-700"}`}
+                className={`p-3 rounded-xl border flex flex-col items-center gap-1 transition-colors ${localCrop === opt.id ? "bg-rose-600 border-rose-500 text-white" : "bg-zinc-800 border-zinc-700 text-zinc-400 hover:bg-zinc-700"}`}
               >
                 <span className="text-lg leading-none">{opt.icon}</span>
                 <span className="text-[11px] font-medium">{opt.label}</span>
@@ -166,7 +166,7 @@ export default function TrimPanel({ clip }) {
         <button
           onClick={handleApply}
           disabled={!hasChanges}
-          className={`w-full py-3 rounded-xl font-semibold text-sm transition-colors ${hasChanges ? "bg-violet-600 hover:bg-violet-500 text-white" : "bg-zinc-800 text-zinc-500 border border-zinc-700"}`}
+          className={`w-full py-3 rounded-xl font-semibold text-sm transition-colors ${hasChanges ? "bg-rose-600 hover:bg-rose-500 text-white" : "bg-zinc-800 text-zinc-500 border border-zinc-700"}`}
         >
           Apply Crop
         </button>
@@ -186,7 +186,7 @@ export default function TrimPanel({ clip }) {
         <p className="text-xs font-mono text-zinc-300">
           {formatTime(localStart)} – {formatTime(localEnd)} <span className="text-zinc-500">/ {formatTime(clampedDuration)}</span>
         </p>
-        <span className="text-[11px] font-medium px-2 py-1 rounded-full bg-violet-500/15 border border-violet-500/20 text-violet-300">
+        <span className="text-[11px] font-medium px-2 py-1 rounded-full bg-rose-500/15 border border-rose-500/20 text-rose-300">
           {trimmedLen.toFixed(1)}s trimmed
         </span>
       </div>
@@ -214,12 +214,12 @@ export default function TrimPanel({ clip }) {
           <div className="absolute inset-0 rounded-full bg-zinc-800 opacity-60" />
           {/* selected range */}
           <div
-            className="absolute top-0 bottom-0 bg-violet-600 rounded-full"
+            className="absolute top-0 bottom-0 bg-rose-600 rounded-full"
             style={{ left: `${leftPercent}%`, width: `${selectedWidth}%` }}
           />
           {/* inner highlight */}
           <div
-            className="absolute top-0 bottom-0 bg-violet-500 rounded-full opacity-40"
+            className="absolute top-0 bottom-0 bg-rose-500 rounded-full opacity-40"
             style={{ left: `${leftPercent}%`, width: `${selectedWidth}%` }}
           />
 
@@ -234,7 +234,7 @@ export default function TrimPanel({ clip }) {
             onTouchStart={(e) => {
               setDragging("start");
             }}
-            className={`absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-7 h-7 rounded-full border-2 flex items-center justify-center shadow-lg active:scale-110 transition-transform touch-none ${dragging === "start" ? "bg-white border-violet-600 scale-110" : "bg-zinc-100 border-zinc-300"}`}
+            className={`absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-7 h-7 rounded-full border-2 flex items-center justify-center shadow-lg active:scale-110 transition-transform touch-none ${dragging === "start" ? "bg-white border-rose-600 scale-110" : "bg-zinc-100 border-zinc-300"}`}
             style={{ left: `${leftPercent}%` }}
           >
             <span className="w-0.5 h-3 bg-zinc-400 rounded-full" />
@@ -250,7 +250,7 @@ export default function TrimPanel({ clip }) {
               previewAt(localEnd);
             }}
             onTouchStart={() => setDragging("end")}
-            className={`absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-7 h-7 rounded-full border-2 flex items-center justify-center shadow-lg active:scale-110 transition-transform touch-none ${dragging === "end" ? "bg-white border-violet-600 scale-110" : "bg-zinc-100 border-zinc-300"}`}
+            className={`absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-7 h-7 rounded-full border-2 flex items-center justify-center shadow-lg active:scale-110 transition-transform touch-none ${dragging === "end" ? "bg-white border-rose-600 scale-110" : "bg-zinc-100 border-zinc-300"}`}
             style={{ left: `${rightPercent}%` }}
           >
             <span className="w-0.5 h-3 bg-zinc-400 rounded-full" />
@@ -279,7 +279,7 @@ export default function TrimPanel({ clip }) {
                 const v = parseFloat(e.target.value) || 0;
                 setLocalStart(Math.max(0, Math.min(v, localEnd - MIN_GAP)));
               }}
-              className="w-full px-3 py-2 rounded-xl bg-zinc-800 border border-zinc-700 text-sm font-mono text-zinc-200 focus:outline-none focus:border-violet-500"
+              className="w-full px-3 py-2 rounded-xl bg-zinc-800 border border-zinc-700 text-sm font-mono text-zinc-200 focus:outline-none focus:border-rose-500"
             />
           </label>
           <label className="flex flex-col gap-1">
@@ -294,7 +294,7 @@ export default function TrimPanel({ clip }) {
                 const v = parseFloat(e.target.value) || 0;
                 setLocalEnd(Math.max(localStart + MIN_GAP, Math.min(v, clampedDuration)));
               }}
-              className="w-full px-3 py-2 rounded-xl bg-zinc-800 border border-zinc-700 text-sm font-mono text-zinc-200 focus:outline-none focus:border-violet-500"
+              className="w-full px-3 py-2 rounded-xl bg-zinc-800 border border-zinc-700 text-sm font-mono text-zinc-200 focus:outline-none focus:border-rose-500"
             />
           </label>
         </div>
@@ -308,7 +308,7 @@ export default function TrimPanel({ clip }) {
             <button
               key={String(opt.id)}
               onClick={() => setLocalCrop(opt.id)}
-              className={`p-2.5 rounded-xl border flex flex-col items-center gap-1 transition-colors ${localCrop === opt.id ? "bg-violet-600 border-violet-500 text-white" : "bg-zinc-800 border-zinc-700 text-zinc-400 hover:bg-zinc-700"}`}
+              className={`p-2.5 rounded-xl border flex flex-col items-center gap-1 transition-colors ${localCrop === opt.id ? "bg-rose-600 border-rose-500 text-white" : "bg-zinc-800 border-zinc-700 text-zinc-400 hover:bg-zinc-700"}`}
             >
               <span className="text-base leading-none">{opt.icon}</span>
               <span className="text-[11px] font-medium">{opt.label}</span>
@@ -326,7 +326,7 @@ export default function TrimPanel({ clip }) {
         <button
           onClick={handleApply}
           disabled={!hasChanges}
-          className={`col-span-2 py-3 rounded-xl font-semibold text-sm transition-colors ${hasChanges ? "bg-violet-600 hover:bg-violet-500 active:bg-violet-700 text-white shadow-lg shadow-violet-900/20" : "bg-zinc-800 text-zinc-500 border border-zinc-700 opacity-60"}`}
+          className={`col-span-2 py-3 rounded-xl font-semibold text-sm transition-colors ${hasChanges ? "bg-rose-600 hover:bg-rose-500 active:bg-rose-700 text-white shadow-lg shadow-rose-900/20" : "bg-zinc-800 text-zinc-500 border border-zinc-700 opacity-60"}`}
         >
           Apply
         </button>

@@ -127,7 +127,7 @@ export default function Upload() {
 
       {/* Header */}
       <div className="flex items-center gap-2 -mb-1">
-        <div className="w-8 h-8 rounded-xl bg-violet-600 flex items-center justify-center text-white shadow-lg shadow-violet-900/20">
+        <div className="w-8 h-8 rounded-xl bg-rose-600 flex items-center justify-center text-white shadow-lg shadow-rose-900/20">
           <UploadIcon size={16} />
         </div>
         <div className="min-w-0 flex-1">
@@ -135,7 +135,7 @@ export default function Upload() {
           <p className="text-[11px] text-zinc-500 leading-none mt-1">Add videos & images to your timeline</p>
         </div>
         {pending.length > 0 && (
-          <span className="shrink-0 text-[11px] font-medium px-2.5 py-1 rounded-full bg-violet-500/15 border border-violet-500/20 text-violet-300">
+          <span className="shrink-0 text-[11px] font-medium px-2.5 py-1 rounded-full bg-rose-500/15 border border-rose-500/20 text-rose-300">
             {pending.length} ready
           </span>
         )}
@@ -158,7 +158,7 @@ export default function Upload() {
           ${isProcessing ? "opacity-60 pointer-events-none" : ""}
           ${
             isDragging
-              ? "border-violet-500 bg-violet-500/10"
+              ? "border-rose-500 bg-rose-500/10"
               : "border-zinc-700 bg-zinc-800/40 hover:bg-zinc-800/60 hover:border-zinc-600 active:bg-zinc-800"
           }`}
       >
@@ -166,7 +166,7 @@ export default function Upload() {
           animate={isDragging ? { scale: 1.08, rotate: 2 } : { scale: 1, rotate: 0 }}
           transition={{ type: "spring", stiffness: 350, damping: 20 }}
           className={`w-14 h-14 rounded-2xl flex items-center justify-center border shadow-sm ${
-            isDragging ? "bg-violet-600 text-white border-violet-500 shadow-violet-900/20" : "bg-violet-600/20 border-violet-500/30 text-violet-400"
+            isDragging ? "bg-rose-600 text-white border-rose-500 shadow-rose-900/20" : "bg-rose-600/20 border-rose-500/30 text-rose-400"
           }`}
         >
           <UploadIcon size={26} strokeWidth={1.7} />
@@ -186,7 +186,7 @@ export default function Upload() {
             e.stopPropagation();
             openPicker();
           }}
-          className="mt-1 w-full bg-violet-600 hover:bg-violet-500 active:bg-violet-700 text-white text-sm font-semibold py-3.5 rounded-xl transition-colors text-center shadow-lg shadow-violet-900/20 flex items-center justify-center gap-2"
+          className="mt-1 w-full bg-rose-600 hover:bg-rose-500 active:bg-rose-700 text-white text-sm font-semibold py-3.5 rounded-xl transition-colors text-center shadow-lg shadow-rose-900/20 flex items-center justify-center gap-2"
         >
           {isProcessing ? <Loader2 size={16} className="animate-spin" /> : <Sparkles size={16} />}
           {isProcessing ? "Processing..." : "Choose files"}
@@ -227,7 +227,7 @@ export default function Upload() {
           >
             <div className="flex items-center justify-between px-1">
               <h3 className="text-sm font-semibold text-zinc-200 flex items-center gap-2">
-                <span className="w-6 h-6 rounded-full bg-violet-600 text-white flex items-center justify-center text-xs">
+                <span className="w-6 h-6 rounded-full bg-rose-600 text-white flex items-center justify-center text-xs">
                   <Check size={12} strokeWidth={3} />
                 </span>
                 Selected <span className="font-normal text-zinc-500">({pending.length})</span>
@@ -264,7 +264,7 @@ export default function Upload() {
                       )}
                       <span
                         className={`absolute top-2 left-2 text-[10px] font-bold tracking-widest px-1.5 py-0.5 rounded-md border backdrop-blur
-                          ${item.type === "video" ? "bg-violet-600/90 border-violet-500 text-white" : "bg-zinc-900/80 border-zinc-700 text-zinc-200"}`}
+                          ${item.type === "video" ? "bg-rose-600/90 border-rose-500 text-white" : "bg-zinc-900/80 border-zinc-700 text-zinc-200"}`}
                       >
                         {item.type.toUpperCase()}
                       </span>
@@ -301,7 +301,7 @@ export default function Upload() {
               whileTap={{ scale: 0.98 }}
               onClick={handleConfirm}
               disabled={isProcessing}
-              className="w-full mt-1 py-4 rounded-xl bg-violet-600 hover:bg-violet-500 active:bg-violet-700 disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold text-[15px] flex items-center justify-center gap-2 shadow-lg shadow-violet-900/20"
+              className="w-full mt-1 py-4 rounded-xl bg-rose-600 hover:bg-rose-500 active:bg-rose-700 disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold text-[15px] flex items-center justify-center gap-2 shadow-lg shadow-rose-900/20"
             >
               {isProcessing ? <Loader2 size={18} className="animate-spin" /> : null}
               {isProcessing ? "Preparing timeline..." : "Continue to editor"}

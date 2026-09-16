@@ -282,7 +282,7 @@ function SortableClip({ clip, isSelected, onSelect, isTrimMode }) {
       )}
       <div
         className={`relative rounded-xl border-2 bg-zinc-900 flex flex-col transition-all text-left overflow-visible
-          ${isSelected ? "border-violet-500 shadow-lg shadow-violet-900/20 scale-[1.02]" : "border-zinc-700 hover:border-zinc-600"}
+          ${isSelected ? "border-rose-500 shadow-lg shadow-rose-900/20 scale-[1.02]" : "border-zinc-700 hover:border-zinc-600"}
           ${showTrimUI ? "w-[180px]" : "w-[108px]"}`}
       >
         <button
@@ -296,17 +296,17 @@ function SortableClip({ clip, isSelected, onSelect, isTrimMode }) {
               <>
                 <div className="absolute inset-y-0 left-0 bg-black/60 backdrop-blur-[0.5px]" style={{ width: `${leftPct}%` }} />
                 <div className="absolute inset-y-0 right-0 bg-black/60 backdrop-blur-[0.5px]" style={{ width: `${100 - rightPct}%` }} />
-                <div className="absolute inset-y-0 border-y-2 border-violet-500 pointer-events-none" style={{ left: `${leftPct}%`, width: `${widthPct}%` }} />
+                <div className="absolute inset-y-0 border-y-2 border-rose-500 pointer-events-none" style={{ left: `${leftPct}%`, width: `${widthPct}%` }} />
               </>
             )}
             {isSelected && !showTrimUI && (
-              <span className="absolute top-1.5 right-1.5 w-5 h-5 rounded-full bg-violet-600 text-white flex items-center justify-center">
+              <span className="absolute top-1.5 right-1.5 w-5 h-5 rounded-full bg-rose-600 text-white flex items-center justify-center">
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
                   <path d="M5 12l5 5l10-10" />
                 </svg>
               </span>
             )}
-            <span className={`absolute bottom-1 left-1 text-[9px] font-bold tracking-widest px-1 py-0.5 rounded border backdrop-blur ${showTrimUI || Math.abs(trimStart) > 0.01 || Math.abs(trimEnd - totalDuration) > 0.01 ? "bg-violet-600/90 border-violet-500 text-white" : "bg-black/70 border-white/10 text-white"}`}>
+            <span className={`absolute bottom-1 left-1 text-[9px] font-bold tracking-widest px-1 py-0.5 rounded border backdrop-blur ${showTrimUI || Math.abs(trimStart) > 0.01 || Math.abs(trimEnd - totalDuration) > 0.01 ? "bg-rose-600/90 border-rose-500 text-white" : "bg-black/70 border-white/10 text-white"}`}>
               {effectiveLen.toFixed(1)}s
             </span>
             {!showTrimUI && (
@@ -344,7 +344,7 @@ function SortableClip({ clip, isSelected, onSelect, isTrimMode }) {
               className="absolute top-0 bottom-[34px] w-7 flex items-center justify-center cursor-ew-resize touch-none select-none z-20"
               style={{ left: `calc(${leftPct}% - 14px)` }}
             >
-              <div className={`w-[14px] h-[68px] rounded-md bg-white shadow-xl border border-zinc-300 flex flex-col items-center justify-center gap-1 ${dragging === "start" ? "scale-105 bg-violet-50 ring-2 ring-violet-400" : ""}`}>
+              <div className={`w-[14px] h-[68px] rounded-md bg-white shadow-xl border border-zinc-300 flex flex-col items-center justify-center gap-1 ${dragging === "start" ? "scale-105 bg-rose-50 ring-2 ring-rose-400" : ""}`}>
                 <span className="w-0.5 h-3 bg-zinc-500 rounded-full" />
                 <span className="w-0.5 h-3 bg-zinc-500 rounded-full" />
                 <span className="text-[8px] font-bold text-zinc-600 -rotate-90 whitespace-nowrap mt-1">TRIM</span>
@@ -356,7 +356,7 @@ function SortableClip({ clip, isSelected, onSelect, isTrimMode }) {
               className="absolute top-0 bottom-[34px] w-7 flex items-center justify-center cursor-ew-resize touch-none select-none z-20"
               style={{ left: `calc(${rightPct}% - 14px)` }}
             >
-              <div className={`w-[14px] h-[68px] rounded-md bg-white shadow-xl border border-zinc-300 flex flex-col items-center justify-center gap-1 ${dragging === "end" ? "scale-105 bg-violet-50 ring-2 ring-violet-400" : ""}`}>
+              <div className={`w-[14px] h-[68px] rounded-md bg-white shadow-xl border border-zinc-300 flex flex-col items-center justify-center gap-1 ${dragging === "end" ? "scale-105 bg-rose-50 ring-2 ring-rose-400" : ""}`}>
                 <span className="w-0.5 h-3 bg-zinc-500 rounded-full" />
                 <span className="w-0.5 h-3 bg-zinc-500 rounded-full" />
               </div>
@@ -507,7 +507,7 @@ export default function Editor() {
                 <button
                   key={opt.id}
                   onClick={() => setAspect(opt.id)}
-                  className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${aspect === opt.id ? "bg-violet-600 text-white shadow" : "text-zinc-400 hover:text-zinc-200"}`}
+                  className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${aspect === opt.id ? "bg-rose-600 text-white shadow" : "text-zinc-400 hover:text-zinc-200"}`}
                 >
                   {opt.label}
                 </button>
@@ -515,7 +515,7 @@ export default function Editor() {
             </div>
             <button
               onClick={() => navigate("/preview")}
-              className="px-3 py-1.5 rounded-full bg-violet-600 hover:bg-violet-500 active:bg-violet-700 text-white text-xs font-semibold flex items-center gap-1.5 shadow shadow-violet-900/20 shrink-0"
+              className="px-3 py-1.5 rounded-full bg-rose-600 hover:bg-rose-500 active:bg-rose-700 text-white text-xs font-semibold flex items-center gap-1.5 shadow shadow-rose-900/20 shrink-0"
             >
               <Eye size={12} />
               Preview
@@ -583,7 +583,7 @@ export default function Editor() {
                 console.error(e);
               }
             }}
-            className="mx-auto flex items-center gap-1.5 text-xs font-medium px-4 py-2 rounded-full bg-violet-600 text-white hover:bg-violet-500 transition-colors shadow"
+            className="mx-auto flex items-center gap-1.5 text-xs font-medium px-4 py-2 rounded-full bg-rose-600 text-white hover:bg-rose-500 transition-colors shadow"
           >
             <Film size={12} /> Load sample video
           </motion.button>
@@ -638,28 +638,30 @@ export default function Editor() {
                         isTrimMode={isTrimMode}
                       />
                   ))}
-                  <button
-                    onClick={handleAddClipClick}
-                    disabled={isAdding}
-                    className="snap-start shrink-0 w-[108px] h-[90px] rounded-xl border-2 border-dashed border-zinc-700 bg-zinc-900/40 flex flex-col items-center justify-center gap-1.5 hover:bg-zinc-800 hover:border-zinc-600 transition-colors disabled:opacity-50"
-                  >
-                    <span className="w-8 h-8 rounded-full bg-zinc-800 border border-zinc-700 flex items-center justify-center text-zinc-400">
-                      {isAdding ? <Loader2 size={16} className="animate-spin" /> : <Plus size={16} />}
-                    </span>
-                    <span className="text-xs font-medium text-zinc-400">{isAdding ? "Adding..." : "Add"}</span>
-                  </button>
+                  <div className="snap-start shrink-0 relative pt-6 flex self-stretch">
+                    <button
+                      onClick={handleAddClipClick}
+                      disabled={isAdding}
+                      className="flex-1 w-[108px] min-h-[104px] rounded-xl border-2 border-dashed border-zinc-700 bg-zinc-900/40 flex flex-col items-center justify-center gap-1.5 hover:bg-zinc-800 hover:border-zinc-600 transition-colors disabled:opacity-50"
+                    >
+                      <span className="w-8 h-8 rounded-full bg-zinc-800 border border-zinc-700 flex items-center justify-center text-zinc-400">
+                        {isAdding ? <Loader2 size={16} className="animate-spin" /> : <Plus size={16} />}
+                      </span>
+                      <span className="text-xs font-medium text-zinc-400">{isAdding ? "Adding..." : "Add"}</span>
+                    </button>
+                  </div>
                 </div>
               </SortableContext>
               <DragOverlay dropAnimation={null}>
                 {activeClip ? (
-                  <div className="w-[108px] rounded-xl border-2 border-violet-500 bg-zinc-900 shadow-2xl shadow-violet-900/40 overflow-hidden opacity-95 rotate-2 scale-105 pointer-events-none">
+                  <div className="w-[108px] rounded-xl border-2 border-rose-500 bg-zinc-900 shadow-2xl shadow-rose-900/40 overflow-hidden opacity-95 rotate-2 scale-105 pointer-events-none">
                     <div className="h-[64px] bg-black relative overflow-hidden">
                       {activeClip.type === "image" ? (
                         <img src={activeClip.url} alt="" className="w-full h-full object-cover pointer-events-none" />
                       ) : (
                         <video src={activeClip.url} muted playsInline preload="metadata" className="w-full h-full object-cover pointer-events-none" />
                       )}
-                      <span className="absolute bottom-1 left-1 text-[9px] font-bold px-1 py-0.5 rounded bg-violet-600 text-white">
+                      <span className="absolute bottom-1 left-1 text-[9px] font-bold px-1 py-0.5 rounded bg-rose-600 text-white">
                         {(activeClip.trimEnd - activeClip.trimStart).toFixed(1)}s
                       </span>
                     </div>
@@ -706,9 +708,9 @@ export default function Editor() {
               <button
                 key={btn.id}
                 onClick={() => handleToolClick(btn.id)}
-                className={`flex-1 min-w-0 flex flex-col items-center gap-1 py-2 rounded-xl transition-colors ${isActive ? "text-violet-300 bg-violet-500/10" : "text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200"}`}
+                className={`flex-1 min-w-0 flex flex-col items-center gap-1 py-2 rounded-xl transition-colors ${isActive ? "text-rose-300 bg-rose-500/10" : "text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200"}`}
               >
-                <span className={`w-9 h-9 rounded-xl flex items-center justify-center border transition-colors shrink-0 ${isActive ? "bg-violet-600 text-white border-violet-500 shadow" : "bg-zinc-800 border-zinc-700"}`}>
+                <span className={`w-9 h-9 rounded-xl flex items-center justify-center border transition-colors shrink-0 ${isActive ? "bg-rose-600 text-white border-rose-500 shadow" : "bg-zinc-800 border-zinc-700"}`}>
                   <Icon size={18} />
                 </span>
                 <span className="text-[11px] font-medium leading-none truncate w-full text-center">{btn.label}</span>
@@ -769,10 +771,10 @@ export default function Editor() {
                 </p>
                 <p className="text-xs font-mono text-zinc-200 truncate">
                   {`${(selectedClip.trimStart ?? 0).toFixed(1)}s → ${(selectedClip.trimEnd ?? selectedClip.duration).toFixed(1)}s`} <span className="text-zinc-500">/ {(selectedClip.duration || 0).toFixed(1)}s</span>
-                  <span className="ml-2 text-[11px] px-1.5 py-0.5 rounded bg-violet-600 text-white">{Math.max(0, (selectedClip.trimEnd ?? selectedClip.duration) - (selectedClip.trimStart ?? 0)).toFixed(1)}s</span>
+                  <span className="ml-2 text-[11px] px-1.5 py-0.5 rounded bg-rose-600 text-white">{Math.max(0, (selectedClip.trimEnd ?? selectedClip.duration) - (selectedClip.trimStart ?? 0)).toFixed(1)}s</span>
                 </p>
               </div>
-              <button onClick={() => setActiveTool(null)} className="shrink-0 px-4 py-2 rounded-xl bg-violet-600 hover:bg-violet-500 text-white text-sm font-semibold">
+              <button onClick={() => setActiveTool(null)} className="shrink-0 px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-sm font-semibold">
                 Done
               </button>
             </div>
@@ -787,7 +789,7 @@ export default function Editor() {
                 <button
                   key={String(opt.id)}
                   onClick={() => useEditorStore.getState().updateClip(selectedClip.id, { crop: opt.id })}
-                  className={`px-2.5 py-1 rounded-full text-xs font-medium border shrink-0 transition-colors ${selectedClip.crop === opt.id || (!selectedClip.crop && opt.id === null) ? "bg-violet-600 border-violet-500 text-white" : "bg-zinc-800 border-zinc-700 text-zinc-400"}`}
+                  className={`px-2.5 py-1 rounded-full text-xs font-medium border shrink-0 transition-colors ${selectedClip.crop === opt.id || (!selectedClip.crop && opt.id === null) ? "bg-rose-600 border-rose-500 text-white" : "bg-zinc-800 border-zinc-700 text-zinc-400"}`}
                 >
                   {opt.label}
                 </button>
@@ -829,8 +831,8 @@ export default function Editor() {
               </div>
               <div className="flex items-center justify-between px-4 py-2 border-b border-zinc-800 shrink-0 gap-2 min-w-0">
                 <h3 className="text-sm font-semibold text-zinc-100 capitalize flex items-center gap-2 min-w-0">
-                  {activeTool === "text" && <Type size={16} className="text-violet-400 shrink-0" />}
-                  {activeTool === "filters" && <Wand2 size={16} className="text-violet-400 shrink-0" />}
+                  {activeTool === "text" && <Type size={16} className="text-rose-400 shrink-0" />}
+                  {activeTool === "filters" && <Wand2 size={16} className="text-rose-400 shrink-0" />}
                   <span className="truncate">{activeTool} Tool</span>
                   <span className="text-xs font-normal text-zinc-500 hidden sm:inline truncate">{activeTool === "text" ? "• Add & drag on preview" : "— Coming soon"}</span>
                 </h3>

@@ -238,7 +238,7 @@ export default function Preview() {
             <p className="text-sm font-medium text-zinc-300">No clips to preview</p>
             <p className="text-xs text-zinc-500 max-w-[28ch] leading-relaxed">Add clips in the Editor — your final sequence will play here back-to-back with trims, filters & text overlays.</p>
           </div>
-          <motion.button whileTap={{ scale: 0.97 }} onClick={() => navigate("/editor")} className="mt-1 px-5 py-2.5 rounded-full bg-violet-600 hover:bg-violet-500 text-white text-sm font-semibold flex items-center gap-2 shadow-lg shadow-violet-900/20">
+          <motion.button whileTap={{ scale: 0.97 }} onClick={() => navigate("/editor")} className="mt-1 px-5 py-2.5 rounded-full bg-rose-600 hover:bg-rose-500 text-white text-sm font-semibold flex items-center gap-2 shadow-lg shadow-rose-900/20">
             <ArrowLeft size={16} /> Back to Editor
           </motion.button>
           <p className="text-[11px] text-zinc-600">375px mobile • clean final result</p>
@@ -258,7 +258,7 @@ export default function Preview() {
           <ArrowLeft size={14} /> Back
         </button>
         <div className="flex items-center gap-2 min-w-0">
-          <span className="text-[11px] font-semibold tracking-widest px-2 py-1 rounded-full bg-violet-600 text-white flex items-center gap-1 shrink-0">
+          <span className="text-[11px] font-semibold tracking-widest px-2 py-1 rounded-full bg-rose-600 text-white flex items-center gap-1 shrink-0">
             <Sparkles size={10} /> FINAL
           </span>
           <span className="hidden sm:inline text-[11px] font-mono text-zinc-400 truncate">{mediaClips.length} clips • {totalDuration.toFixed(1)}s</span>
@@ -363,7 +363,7 @@ export default function Preview() {
                 {mediaClips.findIndex((c) => c.id === clip.id) + 1} / {mediaClips.length}
               </span>
               {clip.filter && clip.filter !== "none" && (
-                <span className="text-[11px] px-2 py-1 rounded-full bg-violet-600 text-white font-medium truncate">{clip.filter}</span>
+                <span className="text-[11px] px-2 py-1 rounded-full bg-rose-600 text-white font-medium truncate">{clip.filter}</span>
               )}
             </div>
             <span className="hidden sm:inline text-[10px] font-medium px-2 py-1 rounded-full bg-black/60 text-zinc-300 border border-white/10 truncate max-w-[16ch]">{clip.file?.name ?? clip.type}</span>
@@ -382,7 +382,7 @@ export default function Preview() {
           <span className="text-[11px] font-mono text-white tabular-nums min-w-[38px]">{formatTime(displayTime)}</span>
           <div className="flex-1 relative flex items-center h-5 min-w-0">
             <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-1.5 rounded-full bg-white/20 overflow-hidden pointer-events-none">
-              <motion.div className="h-full bg-violet-500 rounded-full" style={{ width: `${progress}%` }} transition={{ duration: 0.1 }} />
+              <motion.div className="h-full bg-rose-500 rounded-full" style={{ width: `${progress}%` }} transition={{ duration: 0.1 }} />
             </div>
             <input
               type="range"

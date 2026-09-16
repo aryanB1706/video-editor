@@ -361,7 +361,7 @@ export default function MediaPreview({ clip: propClip, selectedTextId, onSelectT
                     e.stopPropagation();
                     if (onSelectText) onSelectText(ov.id);
                   }}
-                  className={`absolute select-none touch-none cursor-grab active:cursor-grabbing ${isDragging ? "z-30" : ""} ${isSelected ? "ring-2 ring-violet-500 ring-offset-1 ring-offset-black" : ""}`}
+                  className={`absolute select-none touch-none cursor-grab active:cursor-grabbing ${isDragging ? "z-30" : ""} ${isSelected ? "ring-2 ring-rose-500 ring-offset-1 ring-offset-black" : ""}`}
                   style={{ left: `${x}%`, top: `${y}%`, transform: "translate(-50%, -50%)" }}
                 >
                   <span

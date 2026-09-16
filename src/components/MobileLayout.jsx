@@ -74,7 +74,7 @@ export default function MobileLayout() {
         {/* Top bar — clean, no BETA */}
         <header className="sticky top-0 z-20 bg-zinc-900/85 backdrop-blur-xl border-b border-zinc-800 px-4 h-[56px] flex items-center justify-between shrink-0">
           <div className="flex items-center gap-2.5 min-w-0">
-            <div className="w-8 h-8 rounded-xl bg-violet-600 flex items-center justify-center shadow-lg shadow-violet-600/20 shrink-0">
+            <div className="w-8 h-8 rounded-xl bg-rose-600 flex items-center justify-center shadow-lg shadow-rose-600/20 shrink-0">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="text-white">
                 <path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
@@ -106,14 +106,14 @@ export default function MobileLayout() {
                 end={item.to === "/"}
                 className={({ isActive }) =>
                   `flex flex-col items-center justify-center gap-1 flex-1 min-w-0 py-2 rounded-xl transition-all active:scale-[0.96] ${
-                    isActive ? "text-violet-400" : "text-zinc-500 hover:text-zinc-300"
+                    isActive ? "text-rose-400" : "text-zinc-500 hover:text-zinc-300"
                   }`
                 }
               >
                 {({ isActive }) => (
                   <>
                     <span
-                      className={`p-1.5 rounded-xl transition-colors ${isActive ? "bg-violet-500/15 text-violet-400" : ""}`}
+                      className={`p-1.5 rounded-xl transition-colors ${isActive ? "bg-rose-500/15 text-rose-400" : ""}`}
                     >
                       {item.icon(isActive)}
                     </span>

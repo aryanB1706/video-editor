@@ -102,7 +102,7 @@ export default function FiltersPanel({ clip }) {
               className={`snap-start shrink-0 flex flex-col items-center gap-1.5 ${isActive ? "" : "opacity-90"}`}
             >
               <div
-                className={`w-[80px] h-[56px] rounded-xl overflow-hidden border-2 relative bg-zinc-800 flex items-center justify-center ${isActive ? "border-violet-500 shadow-lg shadow-violet-900/20 scale-[1.02]" : "border-zinc-700"}`}
+                className={`w-[80px] h-[56px] rounded-xl overflow-hidden border-2 relative bg-zinc-800 flex items-center justify-center ${isActive ? "border-rose-500 shadow-lg shadow-rose-900/20 scale-[1.02]" : "border-zinc-700"}`}
               >
                 {thumb ? (
                   <img src={thumb} alt={preset.label} className="w-full h-full object-cover" style={{ filter: filterStyle }} loading="lazy" />
@@ -112,7 +112,7 @@ export default function FiltersPanel({ clip }) {
                   <img src={clip.url} alt={preset.label} className="w-full h-full object-cover" style={{ filter: filterStyle }} />
                 )}
                 {isActive && (
-                  <span className="absolute top-1 right-1 w-5 h-5 rounded-full bg-violet-600 text-white flex items-center justify-center">
+                  <span className="absolute top-1 right-1 w-5 h-5 rounded-full bg-rose-600 text-white flex items-center justify-center">
                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
                       <path d="M5 12l5 5l10-10" />
                     </svg>
@@ -123,14 +123,14 @@ export default function FiltersPanel({ clip }) {
                   {preset.label}
                 </span>
               </div>
-              <span className={`text-[11px] font-medium ${isActive ? "text-violet-300" : "text-zinc-400"}`}>{preset.label}</span>
+              <span className={`text-[11px] font-medium ${isActive ? "text-rose-300" : "text-zinc-400"}`}>{preset.label}</span>
             </button>
           );
         })}
       </div>
       <div className="rounded-xl bg-zinc-800 border border-zinc-700 p-3 flex items-center justify-between">
         <div>
-          <p className="text-xs font-medium text-zinc-200">Selected: <span className="text-violet-300">{PRESETS.find((p) => (p.filter === activeFilter) || (activeFilter == null && p.filter === "none"))?.label ?? "Original"}</span></p>
+          <p className="text-xs font-medium text-zinc-200">Selected: <span className="text-rose-300">{PRESETS.find((p) => (p.filter === activeFilter) || (activeFilter == null && p.filter === "none"))?.label ?? "Original"}</span></p>
           <p className="text-[11px] font-mono text-zinc-500 truncate max-w-[200px]">{activeFilter === "none" || activeFilter == null ? "none" : activeFilter}</p>
         </div>
         {activeFilter !== "none" && activeFilter != null && (

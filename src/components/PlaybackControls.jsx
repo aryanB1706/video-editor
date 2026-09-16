@@ -197,7 +197,7 @@ export default function PlaybackControls() {
           isEmpty
             ? "bg-zinc-800 border-zinc-700 text-zinc-600 cursor-not-allowed"
             : isPlaying
-            ? "bg-violet-600 border-violet-500 text-white shadow"
+            ? "bg-rose-600 border-rose-500 text-white shadow"
             : "bg-white border-white text-black hover:bg-zinc-100"
         }`}
       >
@@ -209,7 +209,7 @@ export default function PlaybackControls() {
       <div className="flex-1 relative flex items-center h-5">
         {/* background track */}
         <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-1.5 rounded-full bg-white/20 overflow-hidden pointer-events-none">
-          <div className="h-full bg-violet-500 rounded-full transition-none" style={{ width: `${progressPercent}%` }} />
+          <div className="h-full bg-rose-500 rounded-full transition-none" style={{ width: `${progressPercent}%` }} />
         </div>
 
         {/* scrubber */}

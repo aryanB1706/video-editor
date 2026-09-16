@@ -10,7 +10,7 @@ const PRESET_COLORS = [
   "#22c55e",
   "#06b6d4",
   "#3b82f6",
-  "#a78bfa",
+  "#fb7185",
   "#ec4899",
 ];
 
@@ -110,13 +110,13 @@ export default function TextPanel({ clip, selectedTextId, onSelectText }) {
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder={selectedTextId ? "Edit text…" : "Enter text…"}
-          className="flex-1 px-3 py-2.5 rounded-xl bg-zinc-800 border border-zinc-700 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:border-violet-500"
+          className="flex-1 px-3 py-2.5 rounded-xl bg-zinc-800 border border-zinc-700 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:border-rose-500"
           maxLength={48}
         />
         <button
           onClick={handleAdd}
           disabled={!text.trim()}
-          className={`px-4 py-2.5 rounded-xl text-sm font-semibold transition-colors ${text.trim() ? "bg-violet-600 hover:bg-violet-500 text-white" : "bg-zinc-800 text-zinc-500 border border-zinc-700"}`}
+          className={`px-4 py-2.5 rounded-xl text-sm font-semibold transition-colors ${text.trim() ? "bg-rose-600 hover:bg-rose-500 text-white" : "bg-zinc-800 text-zinc-500 border border-zinc-700"}`}
         >
           {selectedTextId ? "Update" : "Add"}
         </button>
@@ -135,7 +135,7 @@ export default function TextPanel({ clip, selectedTextId, onSelectText }) {
         </div>
         <div className="flex items-center gap-3">
           <span className="text-xs text-zinc-500">A</span>
-          <input type="range" min={12} max={48} value={fontSize} onChange={(e) => handleFontSize(e.target.value)} className="flex-1 accent-violet-600" />
+          <input type="range" min={12} max={48} value={fontSize} onChange={(e) => handleFontSize(e.target.value)} className="flex-1 accent-rose-600" />
           <span className="text-lg text-zinc-300">A</span>
         </div>
         <p className="text-[11px] text-zinc-500 mt-1">Live preview updates — drag text on canvas too</p>
@@ -149,7 +149,7 @@ export default function TextPanel({ clip, selectedTextId, onSelectText }) {
             <button
               key={c}
               onClick={() => handleColor(c)}
-              className={`w-8 h-8 rounded-full border-2 flex items-center justify-center transition-all ${color === c ? "border-violet-500 scale-110 ring-2 ring-violet-400" : "border-zinc-700"}`}
+              className={`w-8 h-8 rounded-full border-2 flex items-center justify-center transition-all ${color === c ? "border-rose-500 scale-110 ring-2 ring-rose-400" : "border-zinc-700"}`}
               style={{ background: c }}
               aria-label={c}
             >
@@ -165,7 +165,7 @@ export default function TextPanel({ clip, selectedTextId, onSelectText }) {
 
       {/* Position hint - direct touch/mouse */}
       <div className="rounded-xl bg-zinc-800/50 border border-zinc-700 p-3 flex gap-3">
-        <div className="w-8 h-8 rounded-lg bg-violet-600/20 border border-violet-500/30 flex items-center justify-center text-violet-300 shrink-0">✋</div>
+        <div className="w-8 h-8 rounded-lg bg-rose-600/20 border border-rose-500/30 flex items-center justify-center text-rose-300 shrink-0">✋</div>
         <div>
           <p className="text-xs font-medium text-zinc-200">Move text on preview</p>
           <p className="text-[11px] text-zinc-400 leading-relaxed">
@@ -185,7 +185,7 @@ export default function TextPanel({ clip, selectedTextId, onSelectText }) {
                 <div
                   key={ov.id}
                   onClick={() => onSelectText && onSelectText(ov.id)}
-                  className={`flex items-center gap-2 p-2 rounded-xl border cursor-pointer transition-colors ${isSel ? "bg-violet-600/20 border-violet-500/40" : "bg-zinc-800 border-zinc-700 hover:bg-zinc-700/60"}`}
+                  className={`flex items-center gap-2 p-2 rounded-xl border cursor-pointer transition-colors ${isSel ? "bg-rose-600/20 border-rose-500/40" : "bg-zinc-800 border-zinc-700 hover:bg-zinc-700/60"}`}
                 >
                   <span className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0" style={{ background: ov.color ?? "#fff", color: ov.color === "#ffffff" || ov.color === "#ffff00" ? "#000" : "#fff", fontSize: "10px" }}>
                     T
